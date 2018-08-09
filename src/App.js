@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
+// import axios from axios
+
+// Create unique API key inside empty string
+let apiConfig = {
+  headers: {
+    apikey: ''
+  }
+}
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state
+  }
   render() {
     return (
       <div className="App">
