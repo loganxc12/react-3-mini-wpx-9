@@ -3,7 +3,24 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
+// Create Unique Api Key
+let apiConfig = {
+  headers: {
+    apikey: 'BrentisLegit'
+  }
+}
+
 class App extends Component {
+  // build constructor to initialize state
+  constructor(){
+    super();
+    this.state = {
+          gods: [],
+          specificGod: {},
+      }
+  }
+
+
   render() {
     return (
       <div className="App">
