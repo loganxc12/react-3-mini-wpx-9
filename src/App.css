@@ -1,5 +1,8 @@
 .App {
+  margin-top: 0;
   text-align: center;
+  background-color: rgb(0, 155, 232);
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -25,4 +28,74 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.App > div {
+  margin: 0 auto;
+  width: 75%;
+  min-height: 100vh;
+  background: grey;
+}
+
+header {
+  background: lightgray;
+  padding: 1em;
+  border-radius: 10pt;
+}
+
+header > button:nth-child(3) {
+  margin-left: 10px;
+  /* background-color: blue; */
+}
+
+button {
+  border: solid .2em white;
+  background: transparent;
+  color: rgb(0, 155, 232);
+  padding: .5em;
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+h1 {
+  margin: 0;
+  padding: .5em 0 .2em 0;
+  /* background: rgb(0, 155, 232); */
+  color: rgb(0, 155, 232);
+  font-size: 5em;
+}
+
+h1 > i {
+  color: lightgray;
+  font-size: .2em;
+}
+
+
+img {
+  width: 500px;
+  height: 400px;
+}
+
+.gods-parent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.one-god, .gods {
+  padding: 1em 0 1em 0;
+  color: white;
+  font-weight: bold;
+  letter-spacing: .1em;
+  border-bottom: solid 2px lightgray;
+}
+
+.gods {
+  margin-left: 3em;
+}
+
+.gods > h2 {
+  margin: 0;
+  margin-bottom: .5em;
 }
