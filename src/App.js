@@ -22,18 +22,31 @@ class App extends Component {
           gods: [],
           oneGod: {},
           oneGodPowers: [],
+          editName: false,
+          name: ''
       }
       this.getGods = this.getGods.bind(this);
+      this.updateGod = this.updateGod.bind(this);
+      this.updateName = this.updateName.bind(this);
+      this.nameInput = React.createRef();
   }
 
-  // componentDidMount(){
-  //   console.log(apiConfig)
-  //   axios.post('https://ancient-gods-api.now.sh/api/gods/reset', {}, apiConfig).then(res => {
-  //     this.setState({
-  //       gods: res.data
-  //     })
-  //   })
-  // }
+  componentDidMount(){
+    // axios.get(baseUrl, apiConfig).then(res => {
+    //   console.log(res)
+    //   this.setState({
+    //     gods: res.data,
+    //     oneGod: []
+    //   })
+    // })
+
+    console.log(apiConfig)
+    axios.post('https://ancient-gods-api.now.sh/api/gods/reset', {}, apiConfig).then(res => {
+      this.setState({
+        gods: res.data
+      })
+    })
+  }
 
 getGods(){
   console.log('hit')
@@ -66,8 +79,17 @@ getOneGod(id){
   // setState with response -> oneGod
 }
 
-updateGod(id){
+updateGod(){
+  const { name } = this.state
+  const { id } = this.state.oneGod
+  // console.log(value, id)
   // axios (PATCH)
+  axios.patch(`${baseUrl}/${id}`, {name}, apiConfig).then(res => {
+    this.setState({
+      oneGod: res.data,
+      editName: false,
+    })
+  })
   // setState with ????????????????
 }
 
@@ -88,11 +110,24 @@ deleteGod(id){
   // setState with ?????????????????
 }
 
+handleUserInput (e) {
+  const name = e.target.name;
+  const value = e.target.value;
+  this.setState({[name]: value});
+}
+
+updateName(){
+  this.setState(prevState => {
+    return {
+      editName: !prevState.editName
+    }
+  })
+}
 
 
   render() {
-
-    const { oneGod, oneGodPowers } = this.state;
+    console.log(this.state)
+    const { oneGod, oneGodPowers, editName } = this.state;
 
     const gods = this.state.gods.map(god => {
       return (
@@ -113,22 +148,26 @@ deleteGod(id){
             <button onClick={() => this.setState({gods: [], oneGod: []})}>Reset</button>
           </header>
 
-          {/* Render Gods Array */}
           <div className='gods-parent'>
             {gods}
           </div>
 
         {oneGod.name ? 
           <div className="one-god">
-              <h1>{oneGod.name}<i class="fas fa-pen"></i></h1>
+          {/* ref={name => this.name = name} */}
+              {editName ? 
+                <input type="text" placeholder={oneGod.name} name='name' value={this.state.name} onChange={e => this.handleUserInput(e)}/> 
+                  : 
+                <h1>{oneGod.name}<i className="fas fa-pen" onClick={this.updateName}></i></h1>
+              }
               <h4>{oneGod.mythology} {oneGod.demigod ? "Demigod" : "God"}</h4>
               <img src={oneGod.image} alt={oneGod.name}/>
               <h2><u>Powers of {oneGod.name}</u></h2>
               {oneGodPowers}
 
-              <button>Update God</button>
+              <button onClick={this.updateGod}>Update God</button>
               <button onClick={() => this.deleteGod(oneGod.id)}>Delete God</button>
-          </div> : null}
+          </div> : null} 
         </div>
       </div>
     );
