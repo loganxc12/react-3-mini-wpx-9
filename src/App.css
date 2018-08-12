@@ -1,3 +1,7 @@
+* {
+  font-family: serif;
+}
+
 .App {
   margin-top: 0;
   text-align: center;
@@ -14,7 +18,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: white;
+  color: #fff;
 }
 
 .App-title {
@@ -30,7 +34,7 @@
   to { transform: rotate(360deg); }
 }
 
-.App > div {
+.App > .container {
   margin: 0 auto;
   width: 75%;
   min-height: 100vh;
@@ -43,23 +47,25 @@ header {
   border-radius: 10pt;
 }
 
-header > button:nth-child(3) {
+header > button {
   margin-left: 10px;
   /* background-color: blue; */
 }
 
 button {
   border: solid .2em white;
-  background: transparent;
+  border-radius: 8pt;
+  background: #fff;
   color: rgb(0, 155, 232);
-  padding: .5em;
+  padding: .3em;
+  margin-top: .3em;
   font-size: 1.7em;
   font-weight: bold;
 }
 
 h1 {
   margin: 0;
-  padding: .5em 0 .2em 0;
+  padding: .2em 0 .2em 0;
   /* background: rgb(0, 155, 232); */
   color: rgb(0, 155, 232);
   font-size: 5em;
@@ -73,7 +79,20 @@ h1 > i {
 
 img {
   width: 500px;
-  height: 400px;
+  height: 450px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgb(0, 155, 232);
+}
+
+@media screen and (max-width: 900px){
+  img {
+    width: 300px;
+    height: 250px;
+  }
+  header {
+    padding: 2em;
+  }
 }
 
 .gods-parent {
@@ -92,10 +111,61 @@ img {
 }
 
 .gods {
-  margin-left: 3em;
+  /* margin-left: 3em; */
 }
 
-.gods > h2 {
+.gods > h2, .one-god > h4 {
   margin: 0;
   margin-bottom: .5em;
+}
+
+.update-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.update-flex > input {
+  font-size: 2em;
+}
+
+h3 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.create-flex {
+  /* width: 30%; */
+  min-height: 60vh;
+  margin: 0 auto;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
+  /* align-items: flex-start; */
+}
+.create-flex > * {
+  padding-top: 1em;
+}
+.create-flex > .create-inputs {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly
+}
+.create-inputs > button {
+  width: 50%;
+  margin: 0 auto;
+  height: 100px;
+  padding: 0;
+}
+
+.create-flex > label, .create-flex > div {
+  color: #fff;
+  font-size: 2em;
+  /* left: 0 !important; */
+}
+
+.reset {
+  position: absolute;
+  left: 12.5%;
+  top: 1%;
 }
