@@ -110,10 +110,6 @@ img {
   border-bottom: solid 2px lightgray;
 }
 
-.gods {
-  /* margin-left: 3em; */
-}
-
 .gods > h2, .one-god > h4 {
   margin: 0;
   margin-bottom: .5em;
