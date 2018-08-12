@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
-
 //import axios
-import axios from 'axios';
-
+import axios from 'axios'
 // Create Unique Api Key
 let apiConfig = {
   headers: {
-    apikey: 'B'
+    apikey: ''
   }
 }
 
@@ -22,14 +20,14 @@ class App extends Component {
           gods: [],
           oneGod: {},
           oneGodPowers: [],
-          editName: false,
           name: '',
           origin: '',
           demigod: false,
           image: '',
           power: '',
+          editName: false,
           create: false
-      }
+    }
       this.getGods = this.getGods.bind(this);
       this.updateGod = this.updateGod.bind(this);
       this.createGod = this.createGod.bind(this);
@@ -37,53 +35,18 @@ class App extends Component {
       this.updateName = this.updateName.bind(this);
       this.initiateCreate = this.initiateCreate.bind(this);
       this.reset = this.reset.bind(this);
-
   }
 
   componentDidMount(){
-    axios.get(baseUrl, apiConfig).then(res => {
-      this.setState({
-        gods: res.data,
-        oneGod: [],
-        create: false
-      })
-    })
   }
 
   getGods(){
     // axios (GET)
-    axios.get(baseUrl, apiConfig).then(res => {
-      this.setState({
-        gods: res.data,
-        oneGod: [],
-        create: false,
-      })
-    })
     // setState with response -> gods
   }
 
   getOneGod(id){
     // axios (GET)
-    console.log('one god hit', id)
-    axios.get(`${baseUrl}/${id}`, apiConfig).then(res => {
-      console.log('data', res.data)
-      let oneGodPowers;
-      if(typeof(res.data.powers) !== "string"){
-        console.log( )
-          oneGodPowers = res.data.powers.map((power, i) => {
-            return (
-            <h4 key={i}>{power}</h4>
-            )
-          })
-      } else {
-        oneGodPowers = res.data.powers
-      }
-      this.setState({
-        oneGod: res.data,
-        oneGodPowers: oneGodPowers,
-        gods: []
-      })
-    })
     // setState with response -> oneGod
   }
 
@@ -91,22 +54,6 @@ class App extends Component {
     const { name } = this.state
     const { id } = this.state.oneGod
     // axios (PATCH)
-    axios.patch(`${baseUrl}/${id}`, {name}, apiConfig).then(res => {
-      let oneGodPowers;
-      if(res.data.powers){
-        oneGodPowers = res.data.powers.map((power, i) => {
-          return (
-          <h4 key={i}>{power}</h4>
-          )
-        })
-      }
-      this.setState({
-        oneGod: res.data,
-        editName: false,
-        oneGodPowers: oneGodPowers || [],
-        name: ''
-      })
-    })
     // setState with ????????????????
   }
 
@@ -119,27 +66,11 @@ class App extends Component {
       powers: this.state.power
     }
     // axios (POST)
-    axios.post(baseUrl, newGod, apiConfig).then(res => {
-      this.setState({
-        gods: res.data,
-        create: false, 
-        name: '',
-        origin: '',
-        demigod: '',
-        image: '',
-      })
-    })
     // setState with ????????????????
   }
 
   deleteGod(id){
     // axios (DELETE)
-    axios.delete(baseUrl + `/${id}`, apiConfig).then(res => {
-      this.setState({
-        gods: res.data,
-        oneGod: {}
-      })
-    })
     // setState with ?????????????????
   }
 
@@ -176,7 +107,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state)
     const { oneGod, oneGodPowers, editName, create } = this.state;
 
     const gods = this.state.gods.map(god => {
@@ -204,7 +134,7 @@ class App extends Component {
             {gods}
           </div>
 
-{/* //////////////// One God Section //////////////////////////// */}
+    {/* //////////////// One God Section //////////////////////////// */}
         {oneGod.name &&
           <div className="one-god">
 
@@ -240,9 +170,9 @@ class App extends Component {
 
           </div> 
         } 
-{/* //////////////// End One God Section //////////////////////////// */}
+    {/* //////////////// End One God Section //////////////////////////// */}
 
-{/* //////////////// Create God Section ///////////////////////////// */}
+    {/* //////////////// Create God Section ///////////////////////////// */}
         { create && 
             <div className='create-flex'>
               <div className="create-inputs">
@@ -266,7 +196,6 @@ class App extends Component {
 
 
 {/* //////////////// End Create God Section ///////////////////////////// */}
-
           <h3>&copy; DevMountain. All rights reserved.</h3>
 
         </div>
