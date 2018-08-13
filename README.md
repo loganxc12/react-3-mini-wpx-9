@@ -105,6 +105,7 @@ With this project, we want the list of Gods to load as soon as the page is loade
 <summary> <code> ./src/App.js </code> </summary>
 
 ```
+
 ```
 
 </details>
@@ -160,3 +161,6 @@ With this project, we want the list of Gods to load as soon as the page is loade
 
 </details>
 
+# Black Diamond
+
+If you are looking for extra practice with React on your own time, try spreading this functionality into separate components. The `Update` functionality can be passed as props to an Update Component, or the `Delete` functionality can be used in a Delete Component. 
