@@ -41,7 +41,8 @@ class App extends Component {
   }
 
   componentDidMount(){
-    axios.get(baseUrl, apiConfig).then(res => {
+    let myPromise = axios.get(baseUrl, apiConfig)
+    myPromise.then(res => {
       this.setState({
         gods: res.data,
         oneGod: [],
@@ -179,9 +180,16 @@ class App extends Component {
     console.log(this.state)
     const { oneGod, oneGodPowers, editName, create } = this.state;
 
-    const gods = this.state.gods.map(god => {
+    const gods = this.state.gods.map((god, i) => {
+      let classname;
+      console.log(i % 2 === 0)
+      if(i % 2 === 0){
+        classname = 'gods even'
+      } else {
+        classname = 'gods odd'
+      }
       return (
-        <div key={god.id} className='gods'>
+        <div key={god.id} className={classname}>
           <h1>{god.name}</h1>
           <img src={god.image} alt={god.name}  onClick={() => this.getOneGod(god.id)}/>
         </div>

@@ -28,13 +28,11 @@ In this step, we are going to install the `axios` npm package and setup our API 
 
 ### Instructions
 
-- In your terminal, navigate to the current project directory.
-- Run this command `npm install axios` or `yarn add axios`.
 - Now open `./src/App.js`.
-- On line 4, import the `axios` npm package from 'axios' 
+- On line 4, import the already installed package `axios` from 'axios' 
 - Next, locate the pre-made `config` object at the top of the Component.
 - Next to where it says `apikey:`, insert your own unique string.
-    * Ex: 'DevMtn-is-Legit'
+    * Ex: 'DevMtn-is-Awesome'
 
 ### Solution
 
@@ -63,15 +61,33 @@ let apiConfig = {
 
 ### Summary
 
+With this project, we want the list of Gods to load as soon as the page is loaded. To do this, we will utilize the React `componentDidMount()` lifecycle hook.
+
 ### Instructions
+
+- In `src/App.js`, navigate to the `componentDidMount()` method just below the constructor function. 
+- Inside the `componentDidMount()`, initialize an axios `GET` request to be sent to the `baseUrl` variable created above and set it to a variable called `myPromise`. 
+- On the next line, we are going to use the `.then()` method and attach it to the previously created `myPromise` variable.
+- Inside the `.then()`, we are going to use a callback with `res` as a parameter.
+- Next, inside the callback, we will invoke `setState` to set the `gods` property in state equal to `res.data`, the `oneGod` property set to an empty array and the `create` property set to false. 
 
 ### Solution
 
 <details>
 
-<summary> <code> File Name </code> </summary>
+<summary> <code> ./src/App.js </code> </summary>
 
-```
+```jsx
+  componentDidMount(){
+    let myPromise = axios.get(baseUrl, apiConfig)
+    myPromise.then(res => {
+      this.setState({
+        gods: res.data,
+        oneGod: [],
+        create: false
+      })
+    })
+  }
 ```
 
 </details>
@@ -86,7 +102,7 @@ let apiConfig = {
 
 <details>
 
-<summary> <code> File Name </code> </summary>
+<summary> <code> ./src/App.js </code> </summary>
 
 ```
 ```
@@ -103,7 +119,7 @@ let apiConfig = {
 
 <details>
 
-<summary> <code> File Name </code> </summary>
+<summary> <code> ./src/App.js </code> </summary>
 
 ```
 ```
@@ -120,7 +136,7 @@ let apiConfig = {
 
 <details>
 
-<summary> <code> File Name </code> </summary>
+<summary> <code> ./src/App.js </code> </summary>
 
 ```
 ```
@@ -137,7 +153,7 @@ let apiConfig = {
 
 <details>
 
-<summary> <code> File Name </code> </summary>
+<summary> <code> ./src/App.js </code> </summary>
 
 ```
 ```

@@ -80,9 +80,9 @@ h1 > i {
 img {
   width: 500px;
   height: 450px;
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px 0px rgb(0, 155, 232);
+  /* -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); */
+  /* -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); */
+  /* box-shadow: 10px 10px 5px 0px rgb(0, 155, 232); */
 }
 
 @media screen and (max-width: 900px){
@@ -99,7 +99,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .one-god, .gods {
@@ -112,6 +112,14 @@ img {
 
 .gods {
   /* margin-left: 3em; */
+}
+
+.even > img {
+  box-shadow: -10px 10px 5px 0px  rgb(0, 155, 232);
+}
+
+.odd > img {
+  box-shadow: 10px 10px 5px 0px rgb(0, 155, 232);
 }
 
 .gods > h2, .one-god > h4 {
