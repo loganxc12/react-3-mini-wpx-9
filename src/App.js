@@ -107,9 +107,9 @@ class App extends Component {
 
 
   render() {
-    const { oneGod, oneGodPowers, editName, create } = this.state;
+    const { oneGod, editName, create } = this.state;
 
-    const gods = this.state.gods.map(god => {
+    const gods = this.state.gods.map((god, i) => {
       return (
         <div key={god.id} className='gods'>
           <h1>{god.name}</h1>
@@ -117,7 +117,16 @@ class App extends Component {
         </div>
       )
     })
-    
+
+    let oneGodPowers;
+    if(this.state.oneGod.powers){
+      oneGodPowers = this.state.oneGod.powers.map((power, i) => {
+        return (
+        <h4 key={i}>{power}</h4>
+        )
+      })
+    }
+
     return (
       <div className="App">
         <div className='container'>
@@ -134,7 +143,7 @@ class App extends Component {
             {gods}
           </div>
 
-    {/* //////////////// One God Section //////////////////////////// */}
+{/* //////////////// One God Section //////////////////////////// */}
         {oneGod.name &&
           <div className="one-god">
 
@@ -170,9 +179,9 @@ class App extends Component {
 
           </div> 
         } 
-    {/* //////////////// End One God Section //////////////////////////// */}
+{/* //////////////// End One God Section //////////////////////////// */}
 
-    {/* //////////////// Create God Section ///////////////////////////// */}
+{/* //////////////// Create God Section ///////////////////////////// */}
         { create && 
             <div className='create-flex'>
               <div className="create-inputs">
@@ -196,6 +205,7 @@ class App extends Component {
 
 
 {/* //////////////// End Create God Section ///////////////////////////// */}
+
           <h3>&copy; DevMountain. All rights reserved.</h3>
 
         </div>
