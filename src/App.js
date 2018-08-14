@@ -21,11 +21,10 @@ class App extends Component {
     this.state = {
           gods: [],
           oneGod: {},
-          oneGodPowers: [],
           editName: false,
+          demigod: false,
           name: '',
           origin: '',
-          demigod: false,
           image: '',
           power: '',
           create: false
@@ -41,19 +40,13 @@ class App extends Component {
   }
 
   componentDidMount(){
-    let myPromise = axios.get(baseUrl, apiConfig)
-    myPromise.then(res => {
-      this.setState({
-        gods: res.data,
-        oneGod: [],
-        create: false
-      })
-    })
+    this.getGods();
   }
 
   getGods(){
     // axios (GET)
-    axios.get(baseUrl, apiConfig).then(res => {
+    let myPromise = axios.get(baseUrl, apiConfig);
+    myPromise.then(res => {
       this.setState({
         gods: res.data,
         oneGod: [],
@@ -65,23 +58,9 @@ class App extends Component {
 
   getOneGod(id){
     // axios (GET)
-    console.log('one god hit', id)
     axios.get(`${baseUrl}/${id}`, apiConfig).then(res => {
-      console.log('data', res.data)
-      let oneGodPowers;
-      if(typeof(res.data.powers) !== "string"){
-        console.log( )
-          oneGodPowers = res.data.powers.map((power, i) => {
-            return (
-            <h4 key={i}>{power}</h4>
-            )
-          })
-      } else {
-        oneGodPowers = res.data.powers
-      }
       this.setState({
         oneGod: res.data,
-        oneGodPowers: oneGodPowers,
         gods: []
       })
     })
@@ -93,22 +72,25 @@ class App extends Component {
     const { id } = this.state.oneGod
     // axios (PATCH)
     axios.patch(`${baseUrl}/${id}`, {name}, apiConfig).then(res => {
-      let oneGodPowers;
-      if(res.data.powers){
-        oneGodPowers = res.data.powers.map((power, i) => {
-          return (
-          <h4 key={i}>{power}</h4>
-          )
-        })
-      }
       this.setState({
         oneGod: res.data,
         editName: false,
-        oneGodPowers: oneGodPowers || [],
         name: ''
       })
     })
     // setState with ????????????????
+  }
+
+  updateState(res){
+    this.setState({
+      gods: res.data,
+      create: false, 
+      demigod: false,
+      name: '',
+      origin: '',
+      image: '',
+      power: ''
+    })
   }
 
   createGod(){
@@ -120,16 +102,7 @@ class App extends Component {
       powers: this.state.power
     }
     // axios (POST)
-    axios.post(baseUrl, newGod, apiConfig).then(res => {
-      this.setState({
-        gods: res.data,
-        create: false, 
-        name: '',
-        origin: '',
-        demigod: '',
-        image: '',
-      })
-    })
+    axios.post(baseUrl, newGod, apiConfig).then(res => this.updateState(res))
     // setState with ????????????????
   }
 
@@ -177,25 +150,26 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state)
-    const { oneGod, oneGodPowers, editName, create } = this.state;
+    const { oneGod, editName, create } = this.state;
 
     const gods = this.state.gods.map((god, i) => {
-      let classname;
-      console.log(i % 2 === 0)
-      if(i % 2 === 0){
-        classname = 'gods even'
-      } else {
-        classname = 'gods odd'
-      }
       return (
-        <div key={god.id} className={classname}>
+        <div key={god.id} className='gods'>
           <h1>{god.name}</h1>
           <img src={god.image} alt={god.name}  onClick={() => this.getOneGod(god.id)}/>
         </div>
       )
     })
-    
+
+    let oneGodPowers;
+    if(this.state.oneGod.powers){
+      oneGodPowers = this.state.oneGod.powers.map((power, i) => {
+        return (
+        <h4 key={i}>{power}</h4>
+        )
+      })
+    }
+
     return (
       <div className="App">
         <div className='container'>
