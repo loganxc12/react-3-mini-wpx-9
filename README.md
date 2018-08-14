@@ -6,7 +6,7 @@ In this project, we'll introduce how to use `Axios` inside a React Project to ma
 
 Don't worry about any preexisting code in this project, the important part here is to focus only on how we are interacting with the API using `Axios`
 
-<img src='./src/assets/ezgif.com-optimize.gif' />
+<img src='./readme-assets/ezgif.com-optimize.gif' />
 
 # Setup
 
