@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-//import axios
-import axios from 'axios'
+import axios from 'axios';
 // Create Unique Api Key
 let apiConfig = {
   headers: {
-    apikey: ''
+    apikey: 'DevMtn'
   }
 }
 
-const baseUrl = 'https://ancient-gods-api.now.sh/api/gods'
+const baseUrl = 'https://ancient-gods-api.now.sh/api/gods';
 
 class App extends Component {
   // build constructor to initialize state
@@ -38,26 +36,57 @@ class App extends Component {
   }
 
   componentDidMount(){
+    this.getGods();
   }
 
   getGods(){
-    // axios (GET)
-    // setState with response -> gods
+    const myPromise = axios.get(baseUrl, apiConfig);
+    myPromise.then(res => {
+        this.setState({
+          gods: res.data,
+          oneGod: [], //Why an empty array?
+          create: false
+        })
+      })
   }
 
   getOneGod(id){
-    // axios (GET)
-    // setState with response -> oneGod
+    axios.get(`${baseUrl}/${id}`, apiConfig)
+      .then(res => {
+        this.setState({
+          oneGod: res.data,
+          gods: []
+        })
+      })
   }
 
   updateGod(){
     const { name } = this.state
     const { id } = this.state.oneGod
-    // axios (PATCH)
-    // setState with ????????????????
+    axios.patch(`${baseUrl}/${id}`, {name}, apiConfig)
+      .then(res => {
+        this.setState({
+          oneGod: res.data,
+          editName: false,
+          name: ""
+        })
+      })
   }
 
-  createGod(){
+  updateState(res) {
+    console.log(res);
+    this.setState({
+      gods: res.data,
+      create: false,
+      demigod: false,
+      name: "",
+      origin: "",
+      image: "",
+      power: ""
+    })
+  }
+
+  createGod() {
     let newGod = {
       name: this.state.name,
       mythology: this.state.origin,
@@ -65,13 +94,18 @@ class App extends Component {
       image: this.state.image,
       powers: this.state.power
     }
-    // axios (POST)
-    // setState with ????????????????
+    axios.post(baseUrl, newGod, apiConfig)
+      .then(res => this.updateState(res))
   }
 
   deleteGod(id){
-    // axios (DELETE)
-    // setState with ?????????????????
+    axios.delete(`${baseUrl}/${id}`, apiConfig)
+      .then(res => {
+        this.setState({
+          gods: res.data,
+          oneGod: {}
+        })
+      })
   }
 
   initiateCreate(){
@@ -159,7 +193,7 @@ class App extends Component {
                     <button onClick={this.updateGod}>Update God</button>
                   </div>
                   :
-                  <h1>{oneGod.name}<i className="fas fa-pen" onClick={this.updateName}></i></h1>
+                  <h1>{oneGod.name}<button onClick={this.updateName}>Update Name</button></h1>
               }
 
               <h4>{oneGod.mythology} {oneGod.demigod ? "Demigod" : "God"}</h4>
